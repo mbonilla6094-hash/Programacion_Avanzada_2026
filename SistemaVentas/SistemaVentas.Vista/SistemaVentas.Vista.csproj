@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <StartupObject>SistemaVentas.Vista.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaVentas.LogicaNegocio\SistemaVentas.LogicaNegocio.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Metadatos para el Disenador de Visual Studio -->
+    <Compile Update="FormularioPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormularioPrincipal.Designer.cs">
+      <DependentUpon>FormularioPrincipal.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Copiar el CSV al directorio de salida -->
+    <Content Include="..\Data\ventas.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Data\ventas.csv</Link>
+    </Content>
+  </ItemGroup>
+</Project>

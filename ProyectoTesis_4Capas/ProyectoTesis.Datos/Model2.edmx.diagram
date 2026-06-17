@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb6c1f08c8bf4478b9e8a490da49b692" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="SistemaTesisModel.Estudiante" Width="1.5" PointX="3.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaTesisModel.HistorialProgresion" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaTesisModel.InformeCabecera" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaTesisModel.InformeDetalle" Width="1.5" PointX="10.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaTesisModel.Profesor" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="SistemaTesisModel.FK__Estudiant__Profe__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaTesisModel.FK__Historial__Estud__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaTesisModel.FK__InformeCa__Estud__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaTesisModel.FK__Historial__Infor__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaTesisModel.FK__InformeCa__Profe__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaTesisModel.FK__InformeDe__Infor__5BE2A6F2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

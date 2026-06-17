@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <ApplicationIcon />
+    <StartupObject>PredictorTarifa.Vista.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Referencia a la capa de Logica de Negocio (incluye transitivamente Datos y Entidades) -->
+    <ProjectReference Include="..\PredictorTarifa.Negocio\PredictorTarifa.Negocio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Metadatos para que Visual Studio reconozca FormularioPrincipal como Windows Form -->
+    <Compile Update="FormularioPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormularioPrincipal.Designer.cs">
+      <DependentUpon>FormularioPrincipal.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Copiar el CSV al directorio de salida para que el modelo pueda leerlo -->
+    <Content Include="..\..\Data\taxi-fare-train.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Data\taxi-fare-train.csv</Link>
+    </Content>
+    <Content Include="..\..\Data\taxi-fare-test.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Data\taxi-fare-test.csv</Link>
+    </Content>
+  </ItemGroup>
+
+</Project>

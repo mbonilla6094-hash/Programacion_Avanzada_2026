@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ML.NET con algoritmo FastTree para regresion -->
+    <PackageReference Include="Microsoft.ML" Version="3.0.1" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Referencias a las capas inferiores -->
+    <ProjectReference Include="..\PredictorTarifa.Entidades\PredictorTarifa.Entidades.csproj" />
+    <ProjectReference Include="..\PredictorTarifa.Datos\PredictorTarifa.Datos.csproj" />
+  </ItemGroup>
+
+</Project>

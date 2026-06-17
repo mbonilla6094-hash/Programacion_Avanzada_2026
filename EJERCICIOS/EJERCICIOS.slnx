@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="EJERCICIOS/EJERCICIOS.csproj" />
+  <Project Path="LIBRERIA/LibreriaGeometria.csproj" />
+  <Project Path="TRIANGULo/TRIANGULo.csproj" />
+  <Project Path="CajeroAutomatico/CajeroAutomatico.csproj" />
+  <Project Path="AnalisisVehiculos/AnalisisVehiculos.csproj" />
+</Solution>

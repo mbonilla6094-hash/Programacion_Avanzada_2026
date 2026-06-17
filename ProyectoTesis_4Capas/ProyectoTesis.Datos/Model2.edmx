@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SistemaTesisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="EstudianteId" />
+          </Key>
+          <Property Name="EstudianteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfesorId" Type="int" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cedula" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Carrera" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TituloTesis" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="NumeroResolucion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaResolucion" Type="date" Nullable="false" />
+          <Property Name="ArchivoResolucion" Type="varbinary(max)" />
+          <Property Name="Estado" Type="varchar" MaxLength="30" />
+          <Property Name="PorcentajeAvance" Type="int" />
+          <Property Name="FechaRegistro" Type="date" />
+        </EntityType>
+        <EntityType Name="HistorialProgresion">
+          <Key>
+            <PropertyRef Name="HistorialId" />
+          </Key>
+          <Property Name="HistorialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstudianteId" Type="int" Nullable="false" />
+          <Property Name="InformeCabeceraId" Type="int" Nullable="false" />
+          <Property Name="FechaInforme" Type="date" Nullable="false" />
+          <Property Name="PorcentajeEnInforme" Type="int" Nullable="false" />
+          <Property Name="EstadoEnInforme" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ResumenActividades" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="InformeCabecera">
+          <Key>
+            <PropertyRef Name="InformeCabeceraId" />
+          </Key>
+          <Property Name="InformeCabeceraId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstudianteId" Type="int" Nullable="false" />
+          <Property Name="ProfesorId" Type="int" Nullable="false" />
+          <Property Name="NumeroInforme" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaEmision" Type="date" Nullable="false" />
+          <Property Name="PorcentajeAcumulado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+          <Property Name="Estado" Type="varchar" MaxLength="30" />
+          <Property Name="EsFinal" Type="bit" />
+        </EntityType>
+        <EntityType Name="InformeDetalle">
+          <Key>
+            <PropertyRef Name="InformeDetalleId" />
+          </Key>
+          <Property Name="InformeDetalleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InformeCabeceraId" Type="int" Nullable="false" />
+          <Property Name="NumeroActividad" Type="int" Nullable="false" />
+          <Property Name="DescripcionActividad" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PorcentajeActividad" Type="int" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="ProfesorId" />
+          </Key>
+          <Property Name="ProfesorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Estudiant__Profe__52593CB8">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Estud__5EBF139D">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="HistorialProgresion" Type="Self.HistorialProgresion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteId" />
+            </Principal>
+            <Dependent Role="HistorialProgresion">
+              <PropertyRef Name="EstudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Infor__5FB337D6">
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="1" />
+          <End Role="HistorialProgresion" Type="Self.HistorialProgresion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformeCabecera">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Principal>
+            <Dependent Role="HistorialProgresion">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeCa__Estud__5812160E">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteId" />
+            </Principal>
+            <Dependent Role="InformeCabecera">
+              <PropertyRef Name="EstudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeCa__Profe__59063A47">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="InformeCabecera">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeDe__Infor__5BE2A6F2">
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="1" />
+          <End Role="InformeDetalle" Type="Self.InformeDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformeCabecera">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Principal>
+            <Dependent Role="InformeDetalle">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaTesisModelStoreContainer">
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialProgresion" EntityType="Self.HistorialProgresion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InformeCabecera" EntityType="Self.InformeCabecera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InformeDetalle" EntityType="Self.InformeDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Estudiant__Profe__52593CB8" Association="Self.FK__Estudiant__Profe__52593CB8">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Estud__5EBF139D" Association="Self.FK__Historial__Estud__5EBF139D">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="HistorialProgresion" EntitySet="HistorialProgresion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Infor__5FB337D6" Association="Self.FK__Historial__Infor__5FB337D6">
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+            <End Role="HistorialProgresion" EntitySet="HistorialProgresion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeCa__Estud__5812160E" Association="Self.FK__InformeCa__Estud__5812160E">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeCa__Profe__59063A47" Association="Self.FK__InformeCa__Profe__59063A47">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeDe__Infor__5BE2A6F2" Association="Self.FK__InformeDe__Infor__5BE2A6F2">
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+            <End Role="InformeDetalle" EntitySet="InformeDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaTesisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="EstudianteId" />
+          </Key>
+          <Property Name="EstudianteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfesorId" Type="Int32" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Carrera" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TituloTesis" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroResolucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaResolucion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ArchivoResolucion" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PorcentajeAvance" Type="Int32" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK__Estudiant__Profe__52593CB8" FromRole="Estudiante" ToRole="Profesor" />
+          <NavigationProperty Name="HistorialProgresion" Relationship="Self.FK__Historial__Estud__5EBF139D" FromRole="Estudiante" ToRole="HistorialProgresion" />
+          <NavigationProperty Name="InformeCabecera" Relationship="Self.FK__InformeCa__Estud__5812160E" FromRole="Estudiante" ToRole="InformeCabecera" />
+        </EntityType>
+        <EntityType Name="HistorialProgresion">
+          <Key>
+            <PropertyRef Name="HistorialId" />
+          </Key>
+          <Property Name="HistorialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstudianteId" Type="Int32" Nullable="false" />
+          <Property Name="InformeCabeceraId" Type="Int32" Nullable="false" />
+          <Property Name="FechaInforme" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PorcentajeEnInforme" Type="Int32" Nullable="false" />
+          <Property Name="EstadoEnInforme" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ResumenActividades" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Historial__Estud__5EBF139D" FromRole="HistorialProgresion" ToRole="Estudiante" />
+          <NavigationProperty Name="InformeCabecera" Relationship="Self.FK__Historial__Infor__5FB337D6" FromRole="HistorialProgresion" ToRole="InformeCabecera" />
+        </EntityType>
+        <EntityType Name="InformeCabecera">
+          <Key>
+            <PropertyRef Name="InformeCabeceraId" />
+          </Key>
+          <Property Name="InformeCabeceraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstudianteId" Type="Int32" Nullable="false" />
+          <Property Name="ProfesorId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroInforme" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PorcentajeAcumulado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EsFinal" Type="Boolean" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__InformeCa__Estud__5812160E" FromRole="InformeCabecera" ToRole="Estudiante" />
+          <NavigationProperty Name="HistorialProgresion" Relationship="Self.FK__Historial__Infor__5FB337D6" FromRole="InformeCabecera" ToRole="HistorialProgresion" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK__InformeCa__Profe__59063A47" FromRole="InformeCabecera" ToRole="Profesor" />
+          <NavigationProperty Name="InformeDetalle" Relationship="Self.FK__InformeDe__Infor__5BE2A6F2" FromRole="InformeCabecera" ToRole="InformeDetalle" />
+        </EntityType>
+        <EntityType Name="InformeDetalle">
+          <Key>
+            <PropertyRef Name="InformeDetalleId" />
+          </Key>
+          <Property Name="InformeDetalleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InformeCabeceraId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroActividad" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionActividad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PorcentajeActividad" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InformeCabecera" Relationship="Self.FK__InformeDe__Infor__5BE2A6F2" FromRole="InformeDetalle" ToRole="InformeCabecera" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="ProfesorId" />
+          </Key>
+          <Property Name="ProfesorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Estudiant__Profe__52593CB8" FromRole="Profesor" ToRole="Estudiante" />
+          <NavigationProperty Name="InformeCabecera" Relationship="Self.FK__InformeCa__Profe__59063A47" FromRole="Profesor" ToRole="InformeCabecera" />
+        </EntityType>
+        <Association Name="FK__Estudiant__Profe__52593CB8">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Estud__5EBF139D">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="HistorialProgresion" Type="Self.HistorialProgresion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteId" />
+            </Principal>
+            <Dependent Role="HistorialProgresion">
+              <PropertyRef Name="EstudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeCa__Estud__5812160E">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteId" />
+            </Principal>
+            <Dependent Role="InformeCabecera">
+              <PropertyRef Name="EstudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Infor__5FB337D6">
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="1" />
+          <End Role="HistorialProgresion" Type="Self.HistorialProgresion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformeCabecera">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Principal>
+            <Dependent Role="HistorialProgresion">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeCa__Profe__59063A47">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="ProfesorId" />
+            </Principal>
+            <Dependent Role="InformeCabecera">
+              <PropertyRef Name="ProfesorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InformeDe__Infor__5BE2A6F2">
+          <End Role="InformeCabecera" Type="Self.InformeCabecera" Multiplicity="1" />
+          <End Role="InformeDetalle" Type="Self.InformeDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformeCabecera">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Principal>
+            <Dependent Role="InformeDetalle">
+              <PropertyRef Name="InformeCabeceraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaTesisEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="HistorialProgresion" EntityType="Self.HistorialProgresion" />
+          <EntitySet Name="InformeCabecera" EntityType="Self.InformeCabecera" />
+          <EntitySet Name="InformeDetalle" EntityType="Self.InformeDetalle" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" />
+          <AssociationSet Name="FK__Estudiant__Profe__52593CB8" Association="Self.FK__Estudiant__Profe__52593CB8">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Estud__5EBF139D" Association="Self.FK__Historial__Estud__5EBF139D">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="HistorialProgresion" EntitySet="HistorialProgresion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeCa__Estud__5812160E" Association="Self.FK__InformeCa__Estud__5812160E">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Infor__5FB337D6" Association="Self.FK__Historial__Infor__5FB337D6">
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+            <End Role="HistorialProgresion" EntitySet="HistorialProgresion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeCa__Profe__59063A47" Association="Self.FK__InformeCa__Profe__59063A47">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InformeDe__Infor__5BE2A6F2" Association="Self.FK__InformeDe__Infor__5BE2A6F2">
+            <End Role="InformeCabecera" EntitySet="InformeCabecera" />
+            <End Role="InformeDetalle" EntitySet="InformeDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaTesisModelStoreContainer" CdmEntityContainer="SistemaTesisEntities">
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="SistemaTesisModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />
+                <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+                <ScalarProperty Name="TituloTesis" ColumnName="TituloTesis" />
+                <ScalarProperty Name="NumeroResolucion" ColumnName="NumeroResolucion" />
+                <ScalarProperty Name="FechaResolucion" ColumnName="FechaResolucion" />
+                <ScalarProperty Name="ArchivoResolucion" ColumnName="ArchivoResolucion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PorcentajeAvance" ColumnName="PorcentajeAvance" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialProgresion">
+            <EntityTypeMapping TypeName="SistemaTesisModel.HistorialProgresion">
+              <MappingFragment StoreEntitySet="HistorialProgresion">
+                <ScalarProperty Name="HistorialId" ColumnName="HistorialId" />
+                <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />
+                <ScalarProperty Name="InformeCabeceraId" ColumnName="InformeCabeceraId" />
+                <ScalarProperty Name="FechaInforme" ColumnName="FechaInforme" />
+                <ScalarProperty Name="PorcentajeEnInforme" ColumnName="PorcentajeEnInforme" />
+                <ScalarProperty Name="EstadoEnInforme" ColumnName="EstadoEnInforme" />
+                <ScalarProperty Name="ResumenActividades" ColumnName="ResumenActividades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InformeCabecera">
+            <EntityTypeMapping TypeName="SistemaTesisModel.InformeCabecera">
+              <MappingFragment StoreEntitySet="InformeCabecera">
+                <ScalarProperty Name="InformeCabeceraId" ColumnName="InformeCabeceraId" />
+                <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />
+                <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+                <ScalarProperty Name="NumeroInforme" ColumnName="NumeroInforme" />
+                <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
+                <ScalarProperty Name="PorcentajeAcumulado" ColumnName="PorcentajeAcumulado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="EsFinal" ColumnName="EsFinal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InformeDetalle">
+            <EntityTypeMapping TypeName="SistemaTesisModel.InformeDetalle">
+              <MappingFragment StoreEntitySet="InformeDetalle">
+                <ScalarProperty Name="InformeDetalleId" ColumnName="InformeDetalleId" />
+                <ScalarProperty Name="InformeCabeceraId" ColumnName="InformeCabeceraId" />
+                <ScalarProperty Name="NumeroActividad" ColumnName="NumeroActividad" />
+                <ScalarProperty Name="DescripcionActividad" ColumnName="DescripcionActividad" />
+                <ScalarProperty Name="PorcentajeActividad" ColumnName="PorcentajeActividad" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesor">
+            <EntityTypeMapping TypeName="SistemaTesisModel.Profesor">
+              <MappingFragment StoreEntitySet="Profesor">
+                <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
