@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="PredictorTarifa.Datos/PredictorTarifa.Datos.csproj" />
-  <Project Path="PredictorTarifa.Entidades/PredictorTarifa.Entidades.csproj" />
-  <Project Path="PredictorTarifa.Negocio/PredictorTarifa.Negocio.csproj" />
-  <Project Path="PredictorTarifa.Vista/PredictorTarifa.Vista.csproj" />
-</Solution>

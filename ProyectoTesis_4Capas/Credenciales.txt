@@ -1,2 +1,0 @@
-profesor1: admin123
-profesor2: admin123

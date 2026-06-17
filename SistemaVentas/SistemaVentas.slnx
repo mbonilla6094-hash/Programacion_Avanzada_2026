@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="SistemaVentas.Datos/SistemaVentas.Datos.csproj" />
-  <Project Path="SistemaVentas.Entidades/SistemaVentas.Entidades.csproj" />
-  <Project Path="SistemaVentas.LogicaNegocio/SistemaVentas.LogicaNegocio.csproj" />
-  <Project Path="SistemaVentas.Vista/SistemaVentas.Vista.csproj" />
-</Solution>

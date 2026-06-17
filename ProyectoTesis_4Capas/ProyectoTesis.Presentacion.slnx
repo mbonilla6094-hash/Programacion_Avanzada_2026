@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="ProyectoTesis.Datos/ProyectoTesis.Datos.csproj" Id="66f96a9b-5796-4ccd-a08c-d764c7f57d09" />
-  <Project Path="ProyectoTesis.Entidades/ProyectoTesis.Entidades.csproj" Id="ce494d97-03c3-42c3-a7a5-2969a14ef559" />
-  <Project Path="ProyectoTesis.Logica/ProyectoTesis.Logica.csproj" Id="45515f03-e477-4fc3-9fa8-bc51cbea0471" />
-  <Project Path="ProyectoTesis.Presentacion/ProyectoTesis.Presentacion.csproj" Id="29fa7be5-506c-4c37-9a19-c717e27282e2" />
-</Solution>
